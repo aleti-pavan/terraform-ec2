@@ -6,7 +6,7 @@ Steps to Create
 ===============
 
 1. git clone the repo
-2. cd aws_terraform
+2. cd terraform-ec2
 3. terraform init
 4. terraform plan
 5. terraform apply -auto-approve
@@ -35,5 +35,5 @@ variable "port_number" {
 
 Steps to Delete
 ===============
-1. cd aws_terraform ( make sure you are in the repo )
+1. cd terraform-ec2 ( make sure you are in the repo )
 2. terraform destroy -auto-approve
