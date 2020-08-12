@@ -18,7 +18,7 @@ resource "aws_instance" "ec2" {
 
 resource "aws_key_pair" "sshkey" {
   key_name   = "${var.stack}-${random_pet.tags.id}-key"
-  public_key = file("${var.ssh_key}")
+  # public_key = file("${var.ssh_key}")
 }
 
 data "aws_ami" "rhel" {
