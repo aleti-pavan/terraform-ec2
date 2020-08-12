@@ -3,22 +3,22 @@ resource "random_pet" "tags"{
 }
 
 resource "aws_instance" "ec2" {
-    count = "${var.instances}"
-    ami = "${data.aws_ami.rhel.id}"
-    instance_type = "${var.vm_size}"
-    subnet_id = "${aws_subnet.subnet.id}"
+    count = var.instances
+    ami = data.aws_ami.rhel.id
+    instance_type = var.vm_size
+    subnet_id = aws_subnet.subnet[count.index].id
     associate_public_ip_address = true
     vpc_security_group_ids = ["${aws_security_group.sg.id}"]
-    key_name = "${aws_key_pair.sshkey.key_name}"
+    key_name = aws_key_pair.sshkey.key_name
 
-    tags {
+    tags = {
         Name = "${var.stack}-${random_pet.tags.id}-ec2"
     }
 }
 
 resource "aws_key_pair" "sshkey" {
   key_name   = "${var.stack}-${random_pet.tags.id}-key"
-  public_key = "${file("${var.ssh_key}")}"
+  public_key = file(var.ssh_key)
 }
 
 data "aws_ami" "rhel" {
